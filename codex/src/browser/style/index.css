@@ -1,0 +1,152 @@
+#widget-container h2 {
+  color: var(--theia-ui-font-color1);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 10px;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: darkblue;
+}
+
+.workspace-files-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.workspace-split-panel {
+  display: flex;
+  height: 100%;
+  gap: 10px;
+}
+
+.files-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--theia-border-color1);
+  padding-right: 10px;
+}
+
+.editor-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.files-header,
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.files-header h3,
+.editor-header h3 {
+  margin: 0;
+  color: var(--theia-ui-font-color1);
+}
+
+.files-list {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--theia-editor-background);
+  border: 1px solid var(--theia-border-color1);
+  border-radius: 3px;
+}
+
+.files-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.files-list li {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--theia-border-color1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.files-list li:hover {
+  background: var(--theia-list-hoverBackground);
+}
+
+.files-list li.active {
+  background: var(--theia-selection-background);
+  color: var(--theia-selection-foreground);
+}
+
+.files-list li:last-child {
+  border-bottom: none;
+}
+
+.file-name {
+  color: var(--theia-ui-font-color1);
+  font-weight: 500;
+}
+
+.file-path {
+  color: var(--theia-descriptionForeground);
+  font-size: 0.9em;
+  margin-top: 2px;
+}
+
+.no-files,
+.no-file-selected {
+  padding: 20px;
+  text-align: center;
+  color: var(--theia-descriptionForeground);
+}
+
+/* Quill Editor Styles */
+.quill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--theia-editor-background);
+  border: 1px solid var(--theia-border-color1);
+  border-radius: 3px;
+}
+
+.ql-container {
+  flex: 1;
+  font-size: var(--theia-ui-font-size1);
+  font-family: var(--theia-ui-font-family);
+}
+
+.ql-toolbar {
+  border-bottom: 1px solid var(--theia-border-color1) !important;
+  background: var(--theia-titleBar-activeBackground);
+}
+
+.ql-editor {
+  min-height: 200px;
+  color: var(--theia-editor-foreground);
+}
+
+/* Toolbar button colors */
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+  color: var(--theia-icon-foreground);
+}
+
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active {
+  color: var(--theia-button-hoverBackground);
+}
+
+/* Override Quill's default white background */
+.ql-editor {
+  background: var(--theia-editor-background);
+}
