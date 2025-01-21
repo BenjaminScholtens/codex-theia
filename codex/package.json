@@ -10,13 +10,14 @@
   ],
   "dependencies": {
     "@theia/core": "1.57.1",
+    "@theia/plugin": "^1.57.1",
     "quill": "^2.0.3",
     "react-quill": "^2.0.0"
   },
   "devDependencies": {
+    "@types/quill": "^2.0.14",
     "rimraf": "^5.0.0",
-    "typescript": "~5.4.5",
-    "@types/quill": "^2.0.14"
+    "typescript": "~5.4.5"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

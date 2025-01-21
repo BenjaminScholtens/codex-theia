@@ -1534,6 +1534,11 @@
     semver "^7.5.4"
     tslib "^2.6.2"
 
+"@theia/plugin@^1.57.1":
+  version "1.57.1"
+  resolved "https://registry.yarnpkg.com/@theia/plugin/-/plugin-1.57.1.tgz#2458a4d9fafcfb7a0341b42dcea31fbdabb387e4"
+  integrity sha512-HSZQPQOl8yP6xjm0nJs+wapqIijt8/F+a54hRnYku8+WnJefViNqWT6mbqrYRVAdb7JBVXPWeh8+RNOFcEhcGg==
+
 "@theia/preferences@1.57.1":
   version "1.57.1"
   resolved "https://registry.yarnpkg.com/@theia/preferences/-/preferences-1.57.1.tgz#ae1e45d56dd947c6082253dd636bd4f9f8ddfc9e"
