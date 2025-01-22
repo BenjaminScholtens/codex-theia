@@ -17,13 +17,20 @@
   "devDependencies": {
     "@types/quill": "^2.0.14",
     "rimraf": "^5.0.0",
-    "typescript": "~5.4.5"
+    "typescript": "~5.4.5",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "postcss-loader": "^7.3.3",
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.17"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "tsc && yarn run process-css",
+    "watch": "yarn build -w",
+    "process-css": "postcss src/browser/style/index.css --config postcss.config.js -o lib/browser/style/index.css"
   },
   "theiaExtensions": [
     {

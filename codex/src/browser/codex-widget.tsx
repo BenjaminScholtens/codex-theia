@@ -12,6 +12,7 @@ const ReactQuill = require("react-quill");
 import "react-quill/dist/quill.snow.css";
 import { CodexNotebookAsJSONData } from "../types";
 
+import "./style/index.css";
 export interface FileToEdit {
   name: string;
   path: string;
@@ -85,9 +86,15 @@ export class ContextEditorWidget extends ReactWidget {
                 Save
               </button>
             </div>
+            <div className="flex items-center justify-center bg-gray-100 p-4">
+              <h1 className="text-2xl font-bold text-red-700">
+                Hello Tailwind!
+              </h1>
+            </div>
             {this.content &&
               this.content.cells.slice(0, 10).map((cell) => (
                 <ReactQuill
+                  key={cell.metadata.id}
                   theme="snow"
                   value={cell.value}
                   onChange={this.handleEditorChange}

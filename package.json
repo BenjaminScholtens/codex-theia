@@ -15,9 +15,15 @@
     "watch:electron": "lerna run --parallel watch --ignore browser-app"
   },
   "devDependencies": {
-    "lerna": "2.4.0"
+    "lerna": "2.4.0",
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "autoprefixer": "^10.4.17"
   },
   "workspaces": [
-    "codex", "browser-app", "electron-app"
+    "codex",
+    "browser-app",
+    "electron-app"
   ]
 }

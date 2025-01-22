@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles can be added below */
+
 #widget-container h2 {
   color: var(--theia-ui-font-color1);
   font-size: 12px;
