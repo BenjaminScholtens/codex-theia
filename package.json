@@ -24,6 +24,11 @@
   "workspaces": [
     "codex",
     "browser-app",
-    "electron-app"
-  ]
+    "electron-app",
+    "./shared-ui",
+    "./shared-config"
+  ],
+  "resolutions": {
+    "uuid": "^9.0.0"
+  }
 }

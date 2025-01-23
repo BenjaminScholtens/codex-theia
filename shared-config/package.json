@@ -1,6 +1,6 @@
 {
-    "name": "my-shared-config",
-    "version": "0.0.1",
-    "main": "tailwind.config.js",
-    "license": "MIT"
-  }
+  "name": "shared-config",
+  "version": "0.0.1",
+  "main": "tailwind.config.js",
+  "license": "MIT"
+}

@@ -12,7 +12,8 @@
     "@theia/core": "1.57.1",
     "@theia/plugin": "^1.57.1",
     "quill": "^2.0.3",
-    "react-quill": "^2.0.0"
+    "react-quill": "^2.0.0",
+    "@workspace/ui": "0.0.0"
   },
   "devDependencies": {
     "@types/quill": "^2.0.14",
