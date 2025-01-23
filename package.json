@@ -12,7 +12,8 @@
     "start:browser": "yarn --cwd browser-app start",
     "start:electron": "yarn --cwd electron-app start",
     "watch:browser": "lerna run --parallel watch --ignore electron-app",
-    "watch:electron": "lerna run --parallel watch --ignore browser-app"
+    "watch:electron": "lerna run --parallel watch --ignore browser-app",
+    "build": "lerna run --parallel build"
   },
   "devDependencies": {
     "lerna": "2.4.0",
