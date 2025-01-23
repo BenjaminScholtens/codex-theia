@@ -6,7 +6,7 @@ module.exports = {
 
   // Optionally override or extend the shared content globs
   content: [
-    ...shared.content,
+    // ...shared.content,
     "./**/*.{js,jsx,ts,tsx}",
     // etc.
   ],
