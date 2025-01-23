@@ -1,14 +1,14 @@
 {
-  "name": "@workspace/ui",
+  "name": "workspace-ui",
   "version": "0.0.0",
   "private": true,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "tsc && yarn process-css",
+    "watch": "tsc -w",
+    "process-css": "postcss index.css -o lib/index.css"
   },
-  "type": "module",
   "license": "MIT",
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
@@ -16,7 +16,12 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.473.0",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "react": "*",
