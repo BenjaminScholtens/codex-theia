@@ -1,4 +1,4 @@
-@import 'workspace-ui/lib/index.css';
+@import 'shared-ui/lib/index.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

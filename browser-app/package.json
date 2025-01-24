@@ -15,7 +15,7 @@
     "@theia/terminal": "1.57.1",
     "@theia/workspace": "1.57.1",
     "codex": "0.0.0",
-    "workspace-ui": "0.0.0"
+    "shared-ui": "0.0.0"
   },
   "devDependencies": {
     "@theia/cli": "1.57.1"

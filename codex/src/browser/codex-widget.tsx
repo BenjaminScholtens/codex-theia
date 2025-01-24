@@ -11,7 +11,7 @@ import URI from "@theia/core/lib/common/uri";
 const ReactQuill = require("react-quill");
 import "react-quill/dist/quill.snow.css";
 import { CodexNotebookAsJSONData } from "../types";
-import { Button } from "workspace-ui";
+// import { Button } from "shared-ui";
 
 import "./style/index.css";
 export interface FileToEdit {
@@ -75,7 +75,7 @@ export class ContextEditorWidget extends ReactWidget {
   render(): React.ReactElement {
     return (
       <div className="context-editor-container">
-        <Button className="bg-red-500 text-white">Click me 3</Button>
+        {/* <Button>Click me</Button> */}
         {this.currentFile ? (
           <>
             <div className="editor-header">
@@ -90,7 +90,7 @@ export class ContextEditorWidget extends ReactWidget {
             </div>
             <div className="flex items-center justify-center bg-gray-100 p-4">
               <h1 className="text-2xl font-bold text-red-700">
-                Hello Tailwind!
+                {this.content?.metadata.title}
               </h1>
             </div>
             {this.content &&

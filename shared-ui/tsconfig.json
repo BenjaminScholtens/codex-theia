@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ESNext",
+    "jsx": "react",
+    "declaration": true,
+    "outDir": "../shared-ui/lib",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "../shared-ui",
+    "paths": {
+      "@/*": ["../shared-ui/*"],
+      "@/library/*": ["../shared-ui/library/*"],
+      "@/components/*": ["../shared-ui/components/*"]
+    }
+  },
+  "include": ["../shared-ui/components", "../shared-ui/library", "../shared-ui/*.ts"],
+  "exclude": ["../shared-ui/node_modules"]
+}
+  

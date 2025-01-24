@@ -26,7 +26,7 @@
     "codex",
     "browser-app",
     "electron-app",
-    "workspace-ui",
+    "shared-ui",
     "shared-config"
   ],
   "resolutions": {

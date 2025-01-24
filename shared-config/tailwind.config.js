@@ -1,13 +1,5 @@
 module.exports = {
   // Customize content globs to cover all plugin source folders if desired
-  //   content: [
-  //     "../../codex/src/**/*.{js,jsx,ts,tsx}",
-  //     "../../plugin-two/src/**/*.{js,jsx,ts,tsx}",
-  //     "../../workspace-ui/src/**/*.{js,jsx,ts,tsx}",
-  //     "../../workspace-ui/components/**/*.{js,jsx,ts,tsx}",
-  //     "../../workspace-ui/lib/**/*.{js,jsx,ts,tsx}",
-  //     // ... add more plugin globs as needed
-  //   ],
   theme: {
     extend: {
       colors: {

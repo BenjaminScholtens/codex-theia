@@ -1,12 +1,10 @@
 const shared = require("../shared-config/tailwind.config");
-
 module.exports = {
   // Spread the shared configuration into this plugin’s config
-  ...shared,
+  //   ...shared,
 
   // Optionally override or extend the shared content globs
   content: [
-    ...shared.content,
     "./src/**/*.{js,jsx,ts,tsx}",
     // etc.
   ],
