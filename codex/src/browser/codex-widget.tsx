@@ -18,7 +18,7 @@ import {
   StatefulWidget,
   ExtractableWidget,
 } from "@theia/core/lib/browser";
-import { Disposable, Event, Emitter } from "@theia/core";
+import { Event, Emitter } from "@theia/core";
 import { Message } from "@theia/core/lib/browser";
 // import { Button } from "shared-ui";
 
@@ -75,7 +75,10 @@ export class ContextEditorWidget
         }
         try {
           const uri = new URI(this.currentFile.path);
-          await this.fileService.write(uri, JSON.stringify(this.content));
+          await this.fileService.write(
+            uri,
+            JSON.stringify(this.content, null, 2)
+          );
           this.messageService.info(`Saved ${this.currentFile.name}`);
           this.setDirty(false);
         } catch (error) {
@@ -99,6 +102,7 @@ export class ContextEditorWidget
     try {
       const uri = new URI(file.path);
       const content = await this.fileService.read(uri);
+      console.log({ content });
       this.content = JSON.parse(content.value) as CodexNotebookAsJSONData;
       this.currentFile = file;
       this.title.label = `${file.name} - Context Editor`;
@@ -160,8 +164,23 @@ export class ContextEditorWidget
   // Typically, you'd have logic here to open this widget in a new window, or
   // handle it if the user drags it out as a standalone panel.
 
-  protected handleEditorChange = (content: CodexNotebookAsJSONData) => {
-    this.content = content;
+  protected handleEditorChange = (content: string, cellId: string) => {
+    if (!this.content) return;
+
+    this.content = {
+      ...this.content,
+      cells: this.content.cells.map((cell) => {
+        if (cell.metadata.id === cellId) {
+          return {
+            ...cell,
+            value: content,
+          };
+        }
+        return cell;
+      }),
+    };
+
+    this.setDirty(true);
   };
 
   render(): React.ReactElement {
@@ -191,7 +210,9 @@ export class ContextEditorWidget
                   key={cell.metadata.id}
                   theme="snow"
                   value={cell.value}
-                  onChange={this.handleEditorChange}
+                  onChange={(content: string) =>
+                    this.handleEditorChange(content, cell.metadata.id)
+                  }
                   modules={{
                     toolbar: [
                       [{ header: [1, 2, false] }],
