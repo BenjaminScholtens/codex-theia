@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc && yarn process-css",
-    "watch": "tsc -w",
+    "watch": "build -w",
     "process-css": "postcss index.css -o lib/index.css"
   },
   "license": "MIT",
