@@ -11,6 +11,15 @@ import URI from "@theia/core/lib/common/uri";
 const ReactQuill = require("react-quill");
 import "react-quill/dist/quill.snow.css";
 import { CodexNotebookAsJSONData } from "../types";
+import {
+  Saveable,
+  SaveableSource,
+  Navigatable,
+  StatefulWidget,
+  ExtractableWidget,
+} from "@theia/core/lib/browser";
+import { Disposable, Event, Emitter } from "@theia/core";
+import { Message } from "@theia/core/lib/browser";
 // import { Button } from "shared-ui";
 
 import "./style/index.css";
@@ -20,7 +29,10 @@ export interface FileToEdit {
 }
 
 @injectable()
-export class ContextEditorWidget extends ReactWidget {
+export class ContextEditorWidget
+  extends ReactWidget
+  implements SaveableSource, Navigatable, StatefulWidget, ExtractableWidget
+{
   static readonly ID = "context-editor:widget";
   static readonly LABEL = "Context Editor";
 
@@ -32,6 +44,46 @@ export class ContextEditorWidget extends ReactWidget {
 
   protected currentFile: FileToEdit | null = null;
   protected content: CodexNotebookAsJSONData | undefined;
+
+  // ExtractableWidget-related
+  isExtractable = true;
+  secondaryWindow: Window | undefined;
+
+  // Keep track of whether we are "dirty." This might be updated when the user modifies the editor content.
+  protected dirtyFlag = false;
+
+  // You can emit an event if external components need to react to "dirty" changes
+  protected readonly onDirtyChangedEmitter = new Emitter<void>();
+  get onDirtyChanged(): Event<void> {
+    return this.onDirtyChangedEmitter.event;
+  }
+
+  // Implement SaveableSource
+  get saveable(): Saveable {
+    return {
+      // Tells Theia how or whether auto-save is handled.
+      // Could be: 'off', 'on', 'onFocusChange', etc.
+      // autoSave: "off",
+      // Let Theia know whether our editor is dirty
+      onContentChanged: new Emitter<void>().event,
+      dirty: this.dirtyFlag,
+      onDirtyChanged: this.onDirtyChanged,
+      // The method Theia will call when a "save" is triggered
+      save: async () => {
+        if (!this.currentFile) {
+          return;
+        }
+        try {
+          const uri = new URI(this.currentFile.path);
+          await this.fileService.write(uri, JSON.stringify(this.content));
+          this.messageService.info(`Saved ${this.currentFile.name}`);
+          this.setDirty(false);
+        } catch (error) {
+          this.messageService.error(`Error saving file: ${error}`);
+        }
+      },
+    };
+  }
 
   @postConstruct()
   protected init(): void {
@@ -50,23 +102,63 @@ export class ContextEditorWidget extends ReactWidget {
       this.content = JSON.parse(content.value) as CodexNotebookAsJSONData;
       this.currentFile = file;
       this.title.label = `${file.name} - Context Editor`;
+      this.setDirty(false);
       this.update();
     } catch (error) {
       this.messageService.error(`Error opening file ${file.name}: ${error}`);
     }
   }
 
-  protected async saveFile(): Promise<void> {
-    if (!this.currentFile) return;
+  // Navigatable
+  getResourceUri(): URI | undefined {
+    if (this.currentFile) {
+      return new URI(this.currentFile.path);
+    }
+    return undefined;
+  }
 
-    try {
-      const uri = new URI(this.currentFile.path);
-      await this.fileService.write(uri, JSON.stringify(this.content));
-      this.messageService.info(`Saved ${this.currentFile.name}`);
-    } catch (error) {
-      this.messageService.error(`Error saving file: ${error}`);
+  createMoveToUri(resourceUri: URI): URI | undefined {
+    // Decide how to change the URI if "save as" or move is requested
+    return resourceUri;
+  }
+
+  // StatefulWidget
+  storeState(): object | undefined {
+    // For UTITLED_SCHEME or ephemeral data, you may choose to skip
+    // Return an object representing widget state
+    if (!this.currentFile) {
+      return undefined;
+    }
+    return {
+      filePath: this.currentFile.path,
+      // If you have editor scroll positions, selections, etc., store them here
+    };
+  }
+
+  restoreState(oldState: object): void {
+    // If your widget is being "restored," re-open or re-apply those states
+    const state = oldState as { filePath: string };
+    if (state.filePath) {
+      // Possibly re-open
+      this.openFile({ name: state.filePath, path: state.filePath });
     }
   }
+
+  protected setDirty(newValue: boolean) {
+    if (this.dirtyFlag !== newValue) {
+      this.dirtyFlag = newValue;
+      this.onDirtyChangedEmitter.fire(undefined);
+    }
+  }
+
+  protected onActivateRequest(msg: Message): void {
+    super.onActivateRequest(msg);
+    // Focus widgets or subviews if necessary
+  }
+
+  // ExtractableWidget methods
+  // Typically, you'd have logic here to open this widget in a new window, or
+  // handle it if the user drags it out as a standalone panel.
 
   protected handleEditorChange = (content: CodexNotebookAsJSONData) => {
     this.content = content;
@@ -82,7 +174,7 @@ export class ContextEditorWidget extends ReactWidget {
               <h3>{this.currentFile.name}</h3>
               <button
                 className="theia-button primary"
-                onClick={() => this.saveFile()}
+                onClick={() => this.saveable.save()}
                 title="Save File"
               >
                 Save
