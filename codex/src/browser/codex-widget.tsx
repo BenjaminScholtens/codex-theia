@@ -10,7 +10,7 @@ import { FileService } from "@theia/filesystem/lib/browser/file-service";
 import URI from "@theia/core/lib/common/uri";
 const ReactQuill = require("react-quill");
 import "react-quill/dist/quill.snow.css";
-import { CodexNotebookAsJSONData } from "../types";
+import { CodexNotebookAsJSONData } from "shared-types";
 import {
   Saveable,
   SaveableSource,
